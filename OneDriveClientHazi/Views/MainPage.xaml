@@ -1,0 +1,104 @@
+﻿<Page x:Class="OneDriveClientHazi.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:OneDriveClientHazi.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:OneDriveClientHazi.ViewModels" mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:MainPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <CollectionViewSource x:Key="DriveItemsViewSource"
+                              IsSourceGrouped="False"
+                              Source="{Binding DriveItems}"/>
+    </Page.Resources>
+    
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <CommandBar  ClosedDisplayMode="Compact" HorizontalAlignment="Stretch" Background="#FF0091ea" Opacity="50">
+            
+            <AppBarToggleButton Icon="Download" Label="Download" Click="AppBarButton_Download"  />
+            <AppBarToggleButton Icon="Upload" Label="Upload file" Click="AppBarButton_Upload"/>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Back" Label="Back" Click="AppBarButton_Back"/>
+            <AppBarButton Icon="OpenFile" Label="Details" Click="AppBarButton_Click"/>
+            <AppBarButton Icon="Contact" Label="Sign In" Click="AppBarButton_SignIn"/>
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="About" Click="AppBarButton_About"/>
+                <AppBarButton Label="Help" Click="AppBarButton_Help"/>
+                <AppBarButton  Label="Sign out" Click="AppBarButton_SignOut"/>
+            </CommandBar.SecondaryCommands>
+
+            <CommandBar.Content>
+                <RelativePanel>
+
+                    <TextBlock Text="Nothing selected" Margin="10,20" />
+                </RelativePanel>
+            </CommandBar.Content>
+        </CommandBar>
+        <ScrollViewer  >
+            <!--<StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >-->
+                  
+                <!--<Image Source="https://biopont.hu/sites/default/files/styles/cikkheadimage/public/field/image/1a_cikk.jpg?itok=yimbG5jV" Stretch="None" VerticalAlignment="Center"></Image>-->
+                <Grid>
+                <Grid.Background>
+                    #FF64c1ff
+                </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding CurrentFolderName.Name}" Margin="10, 20, 0, 0" FontSize="25" FontWeight="SemiBold"/>
+                    <GridView Grid.Row="1" Grid.Column="0"
+                  Padding="10"
+                  ItemsSource="{Binding Source={StaticResource DriveItemsViewSource}}"
+                  IsItemClickEnabled="True"
+                  ItemClick="Drive_ItemClick">
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Width="200" Height="250">
+                                    <Grid.Background>
+                                        <!--<LinearGradientBrush EndPoint="0, 0" StartPoint="1, 1">
+                                            <GradientStop Color="#FF102021" Offset="0.1"/>
+                                            <GradientStop Color="#FF1bb7c1" Offset="0.9"/>
+                                        </LinearGradientBrush>-->
+                                        #FF0064b7
+                                    </Grid.Background>
+                                    <Image Source="{Binding WebDavUrl }" Stretch="UniformToFill" VerticalAlignment="Center" />
+                                    <Border VerticalAlignment="Bottom">
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0, 0" StartPoint="1, 1">
+                                                <GradientStop Color="#FF2B2B2B" Offset="0.1"/>
+                                                <GradientStop Color="#FF6E6E6E" Offset="0.9"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <TextBlock Text="{Binding Name}" Margin="12" Foreground="White" FontWeight="SemiBold"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+
+                    
+                </Grid>
+            <!--</StackPanel>-->
+        </ScrollViewer>
+            
+            
+
+
+    </StackPanel>
+
+</Page>
