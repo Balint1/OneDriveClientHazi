@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Graph;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -24,12 +25,20 @@ namespace OneDriveClientHazi.Models
             return true;
         }
 
+
         // props
-        private string name;
-        public string Name
+        private DriveItem item;
+        public DriveItem Item
         {
-            get { return name; }
-            set { SetField(ref name, value, "Name"); }
+            get { return item; }
+            set
+            {
+                SetField(ref item, value, "Item");
+            }
         }
+
+
+        
+
     }
 }

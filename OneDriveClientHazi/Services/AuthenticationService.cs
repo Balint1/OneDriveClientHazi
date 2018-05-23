@@ -23,13 +23,14 @@ namespace OneDriveClientHazi.Services
 
         private static GraphServiceClient graphClient = null;
 
-        // Get an access token for the given context and resourceId. An attempt is first made to 
-        // acquire the token silently. If that fails, then we try to acquire the token by prompting the user.
+       /// <summary>
+       /// OneDrive Client létrehozása
+       /// </summary>
+       /// <returns></returns>
         public static GraphServiceClient GetAuthenticatedClient()
         {
             if (graphClient == null)
             {
-                // Create Microsoft Graph client.
                 try
                 {
                     graphClient = new GraphServiceClient(
@@ -37,10 +38,9 @@ namespace OneDriveClientHazi.Services
                         new DelegateAuthenticationProvider(
                             async (requestMessage) =>
                             {
+                                //JWT token kérése
                                 var token = await GetTokenForUserAsync();
                                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", token);
-                                // This header has been added to identify our sample in the Microsoft Graph service.  If extracting this code for your project please remove.
-                               // requestMessage.Headers.Add("SampleID", "uwp-csharp-apibrowser-sample");
 
                             }));
                     return graphClient;
@@ -57,9 +57,9 @@ namespace OneDriveClientHazi.Services
 
 
         /// <summary>
-        /// Get Token for User.
+        /// Token kérése a user-nek
         /// </summary>
-        /// <returns>Token for user.</returns>
+        /// <returns>Token</returns>
         public static async Task<string> GetTokenForUserAsync()
         {
             AuthenticationResult authResult;
