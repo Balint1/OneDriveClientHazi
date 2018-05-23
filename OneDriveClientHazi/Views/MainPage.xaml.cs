@@ -33,6 +33,7 @@ namespace OneDriveClientHazi.Views
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
+            picker.FileTypeFilter.Add("*");
             var file = await picker.PickSingleFileAsync();
             if (file != null)
             {

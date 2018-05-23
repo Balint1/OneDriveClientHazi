@@ -83,6 +83,10 @@ namespace OneDriveClientHazi.ViewModels
         public async void SingOut()
         {
             AuthenticationService.SignOut();
+            DriveItems.Clear();
+            SelectedItem.Item = null;
+            CurrentFolder.Item = null;
+            graphClient = null;
         }
 
         /// <summary>
